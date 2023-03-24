@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Recipe_App</string>
+    <string name="entry_prompt">Connect for your favourite recipes:</string>
+    <string name="emailLbl">Email:</string>
+    <string name="passwordLbl">Password</string>
+    <string name="emailHint">example@gmail.com</string>
+    <string name="passwordHint">Password here...</string>
+    <string name="labelsColor">#FFF44336</string>
+    <string name="signUpBtnText">Sign up</string>
+    <string name="signInBtnText">Sign in</string>
+
 </resources>
