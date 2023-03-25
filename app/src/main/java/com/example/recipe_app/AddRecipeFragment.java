@@ -8,10 +8,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.widget.EditText;
 
 
 public class AddRecipeFragment extends Fragment {
 
+    EditText contentInput;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -26,7 +29,9 @@ public class AddRecipeFragment extends Fragment {
         {
             Log.d("record:", o.toString());
         }
+        View view = inflater.inflate(R.layout.fragment_add_recipe,container,false);
+        contentInput = view.findViewById(R.id.contentInput);
 
-        return inflater.inflate(R.layout.fragment_add_recipe, container, false);
+        return view;
     }
 }
