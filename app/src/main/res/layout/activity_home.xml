@@ -10,4 +10,13 @@
         android:layout_height="match_parent"
         android:text="This is home activity"
         android:textSize="100sp"/>
+
+    <Button
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="logout"
+        android:id="@+id/testLogout"
+        android:layout_width="100dp"
+        android:layout_height="200dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

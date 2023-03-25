@@ -1,13 +1,9 @@
 package com.example.recipe_app;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
 
-
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,26 +22,16 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 
-//@style/Theme.Recipe_App
-//@style/Theme.AppCompat.Light
 public class MainActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseFirestore db;
     TextInputEditText emailInput, passwordInput;
     Button signInBtn, signUpBtn;
-    static boolean isRunning;
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        isRunning = !isRunning;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        isRunning = !isRunning;
+
         emailInput = findViewById(R.id.email_input);
         passwordInput = findViewById(R.id.password_input);
         signInBtn = findViewById(R.id.signInBtn);
@@ -55,25 +41,6 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
-        mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-
-                FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-                if(currentUser != null)
-                {
-                    if(MainActivity.isRunning)
-                        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-                }
-                else
-                {
-                    if(!MainActivity.isRunning)
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                }
-
-
-            }
-        });
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,20 +103,6 @@ public class MainActivity extends AppCompatActivity {
     public void onStart()
     {
         super.onStart();
-
-
-//        mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
-//            @Override
-//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-//
-//                FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-//
-//                Intent intent = new Intent(getApplicationContext(),currentUser != null ? HomeActivity.class : MainActivity.class);
-//                //intent.setClass(getApplicationContext(),currentUser != null ? HomeActivity.class : MainActivity.class);
-//                startActivity(intent);
-//
-//            }
-//        });
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null)
