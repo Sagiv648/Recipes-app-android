@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.auth.User;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -42,25 +44,23 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     Button logout;
     Toolbar toolbar;
     TextView navHeaderTitle;
+    HashMap<Integer, Fragment> idFragmentMapping;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        idFragmentMapping = new HashMap<>();
+        idFragmentMapping.put(R.id.home_nav, new HomeFragment());
+        idFragmentMapping.put(R.id.my_recipes_nav, new MyRecipesFragment());
+        idFragmentMapping.put(R.id.add_recipe_nav, new AddRecipeFragment());
+        idFragmentMapping.put(R.id.remove_recipe_nav, new RemoveRecipeFragment());
+        idFragmentMapping.put(R.id.user_settings_nav, new UserSettingsFragment());
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
-        String user = mAuth.getCurrentUser().getUid();
+
         String email = mAuth.getCurrentUser().getEmail();
 
-
-
-        //logout = findViewById(R.id.testLogout);
-//        logout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mAuth.signOut();
-//            }
-//        });
         mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -89,6 +89,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
+
         if(savedInstanceState==null)
         {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
@@ -99,31 +100,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         toolbar.setTitle(item.getTitle());
-        switch (item.getItemId())
-        {
-            case R.id.home_nav :
+        Integer id = item.getItemId();
+        if(id == R.id.logout_nav)
+            mAuth.signOut();
+        else
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, idFragmentMapping.get(id)).commit();
 
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
-                break;
-            case R.id.user_settings_nav:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new UserSettingsFragment()).commit();
-                break;
-            case R.id.my_recipes_nav :
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MyRecipesFragment()).commit();
-                break;
-            case R.id.add_recipe_nav :
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AddRecipeFragment()).commit();
-                break;
-            case R.id.remove_recipe_nav:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new RemoveRecipeFragment()).commit();
-                break;
-            case R.id.logout_nav:
-                //Logout
-                Log.d("Logout", "logged out");
-                mAuth.signOut();
-            default:
-                break;
-        }
         drawerLayout.closeDrawer(GravityCompat.START);
 
         return true;
