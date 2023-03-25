@@ -2,10 +2,11 @@ package com.example.recipe_app;
 
 import com.google.firebase.firestore.auth.User;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class UserModel
+public class UserModel implements Serializable
 {
     private String uuid;
     private String email;

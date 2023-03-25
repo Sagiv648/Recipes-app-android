@@ -1,16 +1,36 @@
 package com.example.recipe_app;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class RecipeModel
+public class RecipeModel implements Serializable
 {
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    private String name;
     private ArrayList<String> pictures;
     private Date createdAt;
     private Integer thumbsUp;
     private Integer thumbsDown;
     private Integer visits;
     private ArrayList<String> tags;
+    private String content;
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+
     public ArrayList<String> getTags()
     {
         return tags;
@@ -90,6 +110,16 @@ public class RecipeModel
             if(tags == null)
             tags = new ArrayList<>();
             tags.addAll(rTags);
+            return this;
+        }
+        public Builder addName(String rName)
+        {
+            name = rName;
+            return this;
+        }
+        public Builder addContent(String rContent)
+        {
+            content = rContent;
             return this;
         }
         public RecipeModel Build()

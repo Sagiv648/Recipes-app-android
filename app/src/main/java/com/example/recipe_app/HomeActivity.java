@@ -2,12 +2,14 @@ package com.example.recipe_app;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,6 +32,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.auth.User;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -45,6 +48,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     Toolbar toolbar;
     TextView navHeaderTitle;
     HashMap<Integer, Fragment> idFragmentMapping;
+
+    UserModel user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +66,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         db = FirebaseFirestore.getInstance();
 
         String email = mAuth.getCurrentUser().getEmail();
-
+        String uuid = mAuth.getUid();
         mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -73,6 +79,37 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 
 
+            }
+        });
+
+
+        DocumentReference docRef = db.collection("users").document(uuid);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful())
+                {
+                    DocumentSnapshot doc = task.getResult();
+                    if(doc.exists())
+                    {
+                        user = new UserModel();
+                        user.setEmail(email);
+                        user.setUuid(uuid);
+                        user.setUploaded_recipes(new ArrayList<String>((List) (doc.get("uploaded_recipes"))));
+
+
+
+
+                    }
+
+                }
+                else
+                {
+                    new AlertDialog.Builder(HomeActivity.this).
+                            setTitle("Error")
+                            .setMessage(task.getException().getMessage())
+                            .create().show();
+                }
             }
         });
 
@@ -104,7 +141,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         if(id == R.id.logout_nav)
             mAuth.signOut();
         else
+        {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("user", user);
+            idFragmentMapping.get(item.getItemId()).setArguments(bundle);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, idFragmentMapping.get(id)).commit();
+        }
+
 
         drawerLayout.closeDrawer(GravityCompat.START);
 
