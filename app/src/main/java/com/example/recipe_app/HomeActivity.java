@@ -83,8 +83,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-
+        View headerView = navigationView.getHeaderView(0);
+        ((TextView)headerView.findViewById(R.id.nav_Header_title)).setText(email);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(HomeActivity.this,drawerLayout,toolbar,R.string.open_nav,R.string.close_nav);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
