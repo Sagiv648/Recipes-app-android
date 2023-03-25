@@ -7,5 +7,8 @@
     <string name="passwordHint">Password here...</string>
     <string name="signUpBtnText">Sign up</string>
     <string name="signInBtnText">Sign in</string>
+    <string name="signUpPrompt">Enter our recipes community today:</string>
+    <string name="signUpScreenReturn">Return to entry</string>
+    <string name="invalidFieldsError">All fields must be valid.</string>
 
 </resources>
