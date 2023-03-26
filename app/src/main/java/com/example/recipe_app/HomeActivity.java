@@ -92,7 +92,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     DocumentSnapshot doc = task.getResult();
                     if(doc.exists())
                     {
-                        user = new UserModel();
+
+                        user = new UserModelBuilder().
+                                setEmail(email).
+                                setUuid(uuid)
+                                .setUploadedRecipes(new ArrayList<String>((List) (doc.get("uploaded_recipes"))))
+                                        .build();
+
+
                         user.setEmail(email);
                         user.setUuid(uuid);
                         user.setUploaded_recipes(new ArrayList<String>((List) (doc.get("uploaded_recipes"))));

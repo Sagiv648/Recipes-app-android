@@ -38,30 +38,5 @@ public class UserModel implements Serializable
     }
 
 
-    public class Builder{
-        UserModel user;
-
-        public Builder setUuid(String uuid)
-        {
-
-            user.uuid = uuid;
-            return this;
-        }
-        public Builder setEmail(String email)
-        {
-            user.email = email;
-            return this;
-        }
-        public Builder setUploadedRecipes(ArrayList<String> recs){
-            if(uploaded_recipes == null)
-                uploaded_recipes = new ArrayList<>();
-            uploaded_recipes.addAll(recs);
-            return this;
-        }
-        public UserModel build()
-        {
-            return user;
-        }
-    }
 }
 

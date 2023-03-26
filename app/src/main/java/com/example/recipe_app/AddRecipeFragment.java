@@ -15,7 +15,7 @@ import android.widget.EditText;
 public class AddRecipeFragment extends Fragment {
 
     EditText contentInput;
-
+    View generalView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -29,9 +29,9 @@ public class AddRecipeFragment extends Fragment {
         {
             Log.d("record:", o.toString());
         }
-        View view = inflater.inflate(R.layout.fragment_add_recipe,container,false);
-        contentInput = view.findViewById(R.id.contentInput);
+        generalView = inflater.inflate(R.layout.fragment_add_recipe,container,false);
+        contentInput = generalView.findViewById(R.id.contentInput);
 
-        return view;
+        return generalView;
     }
 }
