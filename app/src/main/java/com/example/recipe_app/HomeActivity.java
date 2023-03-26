@@ -96,13 +96,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                         user = new UserModelBuilder().
                                 setEmail(email).
                                 setUuid(uuid)
+                                .setNumRecipes((Long) doc.get("recipes_number"))
                                 .setUploadedRecipes(new ArrayList<String>((List) (doc.get("uploaded_recipes"))))
                                         .build();
 
 
-                        user.setEmail(email);
-                        user.setUuid(uuid);
-                        user.setUploaded_recipes(new ArrayList<String>((List) (doc.get("uploaded_recipes"))));
+//                        user.setEmail(email);
+//                        user.setUuid(uuid);
+//                        user.setUploaded_recipes(new ArrayList<String>((List) (doc.get("uploaded_recipes"))));
 
 
 

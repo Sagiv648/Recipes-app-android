@@ -27,6 +27,11 @@ public class UserModelBuilder {
             user.getUploaded_recipes().addAll(recs);
             return this;
         }
+        public UserModelBuilder setNumRecipes(Long num)
+        {
+            user.setNum_recipes(num);
+            return this;
+        }
         public UserModel build()
         {
             return user;

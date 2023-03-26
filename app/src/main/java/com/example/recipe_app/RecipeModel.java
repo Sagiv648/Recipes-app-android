@@ -10,7 +10,7 @@ public class RecipeModel implements Serializable
     private String name;
 
     private String picture;
-    private Date createdAt;
+
     private Integer thumbsUp;
     private Integer thumbsDown;
     private Integer visits;
@@ -49,18 +49,6 @@ public class RecipeModel implements Serializable
     public void setTags(String tags) {
         this.tags = tags;
     }
-
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
     public Integer getThumbsUp() {
         return thumbsUp;
     }

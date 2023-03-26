@@ -76,7 +76,7 @@ public class SignupActivity extends AppCompatActivity {
                                     String email = authResult.getUser().getEmail();
                                     Map<String,Object> mapping = new HashMap<String,Object>();
                                     mapping.put("email", email);
-
+                                    mapping.put("recipes_number", 0);
                                     //TODO: Check later if null value in db causes problems
                                     mapping.put("uploaded_recipes", Arrays.asList());
                                     //db.collection("users").document(uuid).set(mapping)
