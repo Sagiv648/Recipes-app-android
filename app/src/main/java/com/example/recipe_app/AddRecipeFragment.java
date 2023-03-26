@@ -79,7 +79,7 @@ public class AddRecipeFragment extends Fragment {
 
                 if((recipeNameInput.getText().toString().length() *
                         tagsInput.getText().length() *
-                        contentInput.getText().length()) == 0)
+                        contentInput.getText().length()) == 0 || imageUri == null)
                         new AlertDialog.Builder(getContext()).setMessage("Invalid fields").setTitle("Error")
                                 .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
                                     @Override

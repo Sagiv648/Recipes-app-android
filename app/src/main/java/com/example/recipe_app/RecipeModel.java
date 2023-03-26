@@ -1,11 +1,21 @@
 package com.example.recipe_app;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class RecipeModel implements Serializable
+public class RecipeModel implements Parcelable
 {
+
+    public RecipeModel()
+    {
+
+    }
 
     private String name;
 
@@ -17,6 +27,40 @@ public class RecipeModel implements Serializable
 
     private String tags;
     private String content;
+
+    protected RecipeModel(Parcel in) {
+        name = in.readString();
+        picture = in.readString();
+        if (in.readByte() == 0) {
+            thumbsUp = null;
+        } else {
+            thumbsUp = in.readInt();
+        }
+        if (in.readByte() == 0) {
+            thumbsDown = null;
+        } else {
+            thumbsDown = in.readInt();
+        }
+        if (in.readByte() == 0) {
+            visits = null;
+        } else {
+            visits = in.readInt();
+        }
+        tags = in.readString();
+        content = in.readString();
+    }
+
+    public static final Creator<RecipeModel> CREATOR = new Creator<RecipeModel>() {
+        @Override
+        public RecipeModel createFromParcel(Parcel in) {
+            return new RecipeModel(in);
+        }
+
+        @Override
+        public RecipeModel[] newArray(int size) {
+            return new RecipeModel[size];
+        }
+    };
 
     public String getPicture() {
         return picture;
@@ -74,4 +118,18 @@ public class RecipeModel implements Serializable
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(picture);
+        dest.writeInt(thumbsUp);
+        dest.writeInt(thumbsDown);
+        dest.writeString(content);
+        dest.writeString(tags);
+    }
 }

@@ -29,6 +29,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.auth.User;
 
@@ -48,9 +49,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     Toolbar toolbar;
     TextView navHeaderTitle;
     HashMap<Integer, Fragment> idFragmentMapping;
-
+    Bundle bundle;
     UserModel user;
-
+    ArrayList<RecipeModel> allRecipes;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +62,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         idFragmentMapping.put(R.id.add_recipe_nav, new AddRecipeFragment());
         idFragmentMapping.put(R.id.remove_recipe_nav, new RemoveRecipeFragment());
         idFragmentMapping.put(R.id.user_settings_nav, new UserSettingsFragment());
-
+        bundle = new Bundle();
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
@@ -81,6 +82,31 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
             }
         });
+
+//        allRecipes = new ArrayList<>();
+//        db.collection("recipes").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                if(task.isSuccessful())
+//                {
+//
+//                    for(QueryDocumentSnapshot doc : task.getResult())
+//                        allRecipes.add(new RecipeModelBuilder().
+//                                addName((String)doc.get("name"))
+//                                .addContent((String)doc.get("content"))
+//                                .addPictures((String)doc.get("picture"))
+//                                .addTags((String)doc.get("tags"))
+//                                .Build()
+//                        );
+//                }
+//                else{
+//                    new AlertDialog.Builder(HomeActivity.this).setTitle("Error")
+//                            .setMessage(task.getException().getMessage())
+//                            .create()
+//                            .show();
+//                }
+//            }
+//        });
 
 
         DocumentReference docRef = db.collection("users").document(uuid);
@@ -133,10 +159,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(HomeActivity.this,drawerLayout,toolbar,R.string.open_nav,R.string.close_nav);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+        bundle.putParcelableArrayList("allRecipes", allRecipes);
 
 
         if(savedInstanceState==null)
         {
+
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
             navigationView.setCheckedItem(R.id.home_nav);
         }
@@ -144,13 +172,24 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+
+        Bundle bundle = new Bundle();
         toolbar.setTitle(item.getTitle());
         Integer id = item.getItemId();
         if(id == R.id.logout_nav)
             mAuth.signOut();
         else
         {
-            Bundle bundle = new Bundle();
+            if(id == R.id.home_nav)
+            {
+                Log.d("Is it home nav?", "yes");
+
+                //bundle.putParcelableArrayList("allRecipes", allRecipes);
+            }
+
+
+
             bundle.putSerializable("user", user);
             idFragmentMapping.get(item.getItemId()).setArguments(bundle);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, idFragmentMapping.get(id)).commit();
