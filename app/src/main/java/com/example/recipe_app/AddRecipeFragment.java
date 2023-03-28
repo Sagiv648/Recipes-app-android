@@ -80,15 +80,8 @@ public class AddRecipeFragment extends Fragment {
                 if((recipeNameInput.getText().toString().length() *
                         tagsInput.getText().length() *
                         contentInput.getText().length()) == 0 || imageUri == null)
-                        new AlertDialog.Builder(getContext()).setMessage("Invalid fields").setTitle("Error")
-                                .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        recipeNameInput.setText("");
-                                        tagsInput.setText("");
-                                        contentInput.setText("");
-                                    }
-                                }).create().show();
+                        new AlertDialog.Builder(getContext()).setMessage("All fields must be present along with a picture.").setTitle("Error")
+                                .create().show();
 
 
                 else

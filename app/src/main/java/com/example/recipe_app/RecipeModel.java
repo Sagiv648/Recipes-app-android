@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class RecipeModel implements Parcelable
+public class RecipeModel
 {
 
     public RecipeModel()
@@ -49,18 +49,6 @@ public class RecipeModel implements Parcelable
         tags = in.readString();
         content = in.readString();
     }
-
-    public static final Creator<RecipeModel> CREATOR = new Creator<RecipeModel>() {
-        @Override
-        public RecipeModel createFromParcel(Parcel in) {
-            return new RecipeModel(in);
-        }
-
-        @Override
-        public RecipeModel[] newArray(int size) {
-            return new RecipeModel[size];
-        }
-    };
 
     public String getPicture() {
         return picture;
@@ -115,21 +103,5 @@ public class RecipeModel implements Parcelable
 
     public void setVisits(Integer visits) {
         this.visits = visits;
-    }
-
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(@NonNull Parcel dest, int flags) {
-        dest.writeString(name);
-        dest.writeString(picture);
-        dest.writeInt(thumbsUp);
-        dest.writeInt(thumbsDown);
-        dest.writeString(content);
-        dest.writeString(tags);
     }
 }

@@ -51,7 +51,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     HashMap<Integer, Fragment> idFragmentMapping;
     Bundle bundle;
     UserModel user;
-    ArrayList<RecipeModel> allRecipes;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,30 +84,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-//        allRecipes = new ArrayList<>();
-//        db.collection("recipes").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                if(task.isSuccessful())
-//                {
-//
-//                    for(QueryDocumentSnapshot doc : task.getResult())
-//                        allRecipes.add(new RecipeModelBuilder().
-//                                addName((String)doc.get("name"))
-//                                .addContent((String)doc.get("content"))
-//                                .addPictures((String)doc.get("picture"))
-//                                .addTags((String)doc.get("tags"))
-//                                .Build()
-//                        );
-//                }
-//                else{
-//                    new AlertDialog.Builder(HomeActivity.this).setTitle("Error")
-//                            .setMessage(task.getException().getMessage())
-//                            .create()
-//                            .show();
-//                }
-//            }
-//        });
+
 
 
         DocumentReference docRef = db.collection("users").document(uuid);
@@ -127,9 +105,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                                         .build();
 
 
-//                        user.setEmail(email);
-//                        user.setUuid(uuid);
-//                        user.setUploaded_recipes(new ArrayList<String>((List) (doc.get("uploaded_recipes"))));
 
 
 
@@ -159,14 +134,27 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(HomeActivity.this,drawerLayout,toolbar,R.string.open_nav,R.string.close_nav);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        bundle.putParcelableArrayList("allRecipes", allRecipes);
 
 
         if(savedInstanceState==null)
         {
+            int re = getIntent().getIntExtra("fragmentNav",0);
+            if(re == 1)
+            {
+                bundle.putInt("the item", 100);
+                Fragment frag = new UserSettingsFragment();
+                frag.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, frag).commit();
+                Log.d("I can nav from here", "to another fragment");
+            }
+            else{
+                Log.d("Is it here?", "savedinstancestate null");
+                Fragment home = new HomeFragment();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,home).commit();
+                navigationView.setCheckedItem(R.id.home_nav);
+            }
 
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
-            navigationView.setCheckedItem(R.id.home_nav);
+
         }
     }
 

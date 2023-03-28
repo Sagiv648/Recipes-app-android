@@ -31,7 +31,7 @@ import java.util.ArrayList;
 public class HomeFragment extends Fragment {
 
 
-    ArrayList<Parcelable> allRecipesParcelable;
+
     FirebaseFirestore db;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,15 +56,7 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         //TODO: Fetch all recipes from firebase as the data
-        //Bundle bundle = getArguments();
-
-        //allRecipesParcelable = bundle.getParcelableArrayList("allRecipes");
-
-//        ArrayList<RecipeModel> allRecipes = new ArrayList<>();
-//        for(Parcelable p : allRecipesParcelable)
-//            allRecipes.add((RecipeModel)p);
-
-        ArrayList<RecipeModel> allRecipes = new ArrayList<>();
+       ArrayList<RecipeModel> allRecipes = new ArrayList<>();
         db.collection("recipes").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -100,11 +92,6 @@ public class HomeFragment extends Fragment {
         recyclerView.setAdapter(homeAdapter);
         homeAdapter.notifyDataSetChanged();
 
-        recyclerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("touched", "item");
-            }
-        });
+
     }
 }
