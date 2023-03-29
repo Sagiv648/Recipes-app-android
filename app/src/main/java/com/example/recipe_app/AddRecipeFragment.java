@@ -11,10 +11,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -72,6 +75,8 @@ public class AddRecipeFragment extends Fragment {
         recipeNameInput = generalView.findViewById(R.id.recipeNameInput);
         tagsInput = generalView.findViewById(R.id.tagsInput);
         storage = FirebaseStorage.getInstance();
+
+        //25 - 29 chars per line
 
         uploadRecipe.setOnClickListener(new View.OnClickListener() {
             @Override

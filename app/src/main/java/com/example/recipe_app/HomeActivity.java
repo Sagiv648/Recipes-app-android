@@ -33,6 +33,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.auth.User;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -138,14 +139,17 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         if(savedInstanceState==null)
         {
-            int re = getIntent().getIntExtra("fragmentNav",0);
-            if(re == 1)
+            int nav = getIntent().getIntExtra("fragmentNav",0);
+            Serializable item = getIntent().getSerializableExtra("pickedRecipe");
+            Log.d("nav to", ((Integer)nav).toString());
+            if(nav == 1)
             {
-                bundle.putInt("the item", 100);
-                Fragment frag = new UserSettingsFragment();
+                Log.d("gets here?", "nav is 1");
+                bundle.putSerializable("item", item);
+                Fragment frag = new ClickedRecipeFragment();
                 frag.setArguments(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, frag).commit();
-                Log.d("I can nav from here", "to another fragment");
+
             }
             else{
                 Log.d("Is it here?", "savedinstancestate null");

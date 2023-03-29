@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.InputStream;
+import java.io.Serializable;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -96,12 +97,12 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.HomeLi
 
             if(position >= 0)
             {
-                Fragment set = new UserSettingsFragment();
+
                 Intent i = new Intent(itemView.getContext(),HomeActivity.class);
                 i.putExtra("fragmentNav", 1);
+                i.putExtra("pickedRecipe", allRecipes.get(position));
                 itemView.getContext().startActivity(i);
-                Log.d("Name:", recipeName.getText().toString());
-                Log.d("Content", allRecipes.get(position).getContent());
+
             }
 
 

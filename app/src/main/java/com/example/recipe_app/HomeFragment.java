@@ -31,15 +31,19 @@ import java.util.ArrayList;
 public class HomeFragment extends Fragment {
 
 
-
+    HomeListAdapter homeAdapter;
     FirebaseFirestore db;
+    ArrayList<RecipeModel> allRecipes;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         db = FirebaseFirestore.getInstance();
+        allRecipes = new ArrayList<>();
+
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        return view;
     }
 
     @Override
@@ -49,14 +53,16 @@ public class HomeFragment extends Fragment {
 //        Intent intent = new Intent(getActivity(), MainActivity.class);
 //        startActivity(intent);
 
+
     }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         //TODO: Fetch all recipes from firebase as the data
-       ArrayList<RecipeModel> allRecipes = new ArrayList<>();
+        allRecipes = new ArrayList<>();
         db.collection("recipes").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -87,9 +93,10 @@ public class HomeFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
 
-        HomeListAdapter homeAdapter = new HomeListAdapter(getContext(), allRecipes);
+        homeAdapter = new HomeListAdapter(getContext(), allRecipes);
 
         recyclerView.setAdapter(homeAdapter);
+
         homeAdapter.notifyDataSetChanged();
 
 
