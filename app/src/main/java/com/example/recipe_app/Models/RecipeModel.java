@@ -1,4 +1,4 @@
-package com.example.recipe_app;
+package com.example.recipe_app.Models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -22,33 +22,9 @@ public class RecipeModel implements Serializable
     private String picture;
 
     private Integer thumbsUp;
-    private Integer thumbsDown;
-    private Integer visits;
 
     private String tags;
     private String content;
-
-    protected RecipeModel(Parcel in) {
-        name = in.readString();
-        picture = in.readString();
-        if (in.readByte() == 0) {
-            thumbsUp = null;
-        } else {
-            thumbsUp = in.readInt();
-        }
-        if (in.readByte() == 0) {
-            thumbsDown = null;
-        } else {
-            thumbsDown = in.readInt();
-        }
-        if (in.readByte() == 0) {
-            visits = null;
-        } else {
-            visits = in.readInt();
-        }
-        tags = in.readString();
-        content = in.readString();
-    }
 
     public String getPicture() {
         return picture;
@@ -89,19 +65,4 @@ public class RecipeModel implements Serializable
         this.thumbsUp = thumbsUp;
     }
 
-    public Integer getThumbsDown() {
-        return thumbsDown;
-    }
-
-    public void setThumbsDown(Integer thumbsDown) {
-        this.thumbsDown = thumbsDown;
-    }
-
-    public Integer getVisits() {
-        return visits;
-    }
-
-    public void setVisits(Integer visits) {
-        this.visits = visits;
-    }
 }

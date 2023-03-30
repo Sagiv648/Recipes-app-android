@@ -1,7 +1,6 @@
-package com.example.recipe_app;
+package com.example.recipe_app.Fragments;
 
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,29 +16,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
-import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.recipe_app.Models.UserModel;
+import com.example.recipe_app.R;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.google.type.Date;
 
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Calendar;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.logging.SimpleFormatter;
 
 
 public class AddRecipeFragment extends Fragment {
@@ -61,12 +53,7 @@ public class AddRecipeFragment extends Fragment {
         UserModel user = (UserModel)(getArguments().getSerializable("user"));
 
         db = FirebaseFirestore.getInstance();
-        Log.d("email:", user.getEmail());
-        Log.d("uuid:",user.getUuid());
-        for (Object o : user.getUploaded_recipes())
-        {
-            Log.d("record:", o.toString());
-        }
+
         generalView = inflater.inflate(R.layout.fragment_add_recipe,container,false);
         contentInput = generalView.findViewById(R.id.contentInput);
         uploadImage = generalView.findViewById(R.id.upload_image_btn);
@@ -75,6 +62,7 @@ public class AddRecipeFragment extends Fragment {
         recipeNameInput = generalView.findViewById(R.id.recipeNameInput);
         tagsInput = generalView.findViewById(R.id.tagsInput);
         storage = FirebaseStorage.getInstance();
+
 
         //25 - 29 chars per line
 
@@ -85,13 +73,14 @@ public class AddRecipeFragment extends Fragment {
                 if((recipeNameInput.getText().toString().length() *
                         tagsInput.getText().length() *
                         contentInput.getText().length()) == 0 || imageUri == null)
-                        new AlertDialog.Builder(getContext()).setMessage("All fields must be present along with a picture.").setTitle("Error")
+                        new AlertDialog.Builder(getContext()).
+                                setMessage("All fields must be present along with a picture.").
+                                setTitle("Error")
                                 .create().show();
 
 
                 else
                 {
-
 
                     ProgressDialog pD = new ProgressDialog(getContext());
                     pD.setTitle("Uploading");
@@ -103,9 +92,7 @@ public class AddRecipeFragment extends Fragment {
                     map.put("picture", "awaiting upload");
                     map.put("content", contentInput.getText().toString());
                     map.put("tags", tagsInput.getText().toString());
-                    map.put("visits", 0);
                     map.put("thumbs_up", 0);
-                    map.put("thumbs_down", 0);
                     user.setNum_recipes(user.getNum_recipes() + 1);
                     uniqueRecipeId = user.getNum_recipes() + "_" + user.getUuid();
                     user.getUploaded_recipes().add(uniqueRecipeId);

@@ -1,6 +1,4 @@
-package com.example.recipe_app;
-
-import java.util.ArrayList;
+package com.example.recipe_app.Models;
 
 public class RecipeModelBuilder {
 
@@ -20,16 +18,6 @@ public class RecipeModelBuilder {
         {
             recipe.setThumbsUp(tUp);
             return this;
-        }
-        public RecipeModelBuilder addThumbsDown(Integer tDown)
-        {
-            recipe.setThumbsDown(tDown);
-            return this;
-        }
-        public RecipeModelBuilder addVisits(Integer rVisits)
-        {
-            recipe.setVisits(rVisits);
-            return  this;
         }
         public RecipeModelBuilder addTags (String rTags)
         {

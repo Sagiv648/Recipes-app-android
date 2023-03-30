@@ -1,10 +1,9 @@
-package com.example.recipe_app;
+package com.example.recipe_app.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,13 +13,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.recipe_app.Activities.HomeActivity;
+import com.example.recipe_app.Models.RecipeModel;
+import com.example.recipe_app.R;
+
 import java.io.InputStream;
-import java.io.Serializable;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.HomeListViewHolder> {
@@ -98,7 +97,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.HomeLi
             if(position >= 0)
             {
 
-                Intent i = new Intent(itemView.getContext(),HomeActivity.class);
+                Intent i = new Intent(itemView.getContext(), HomeActivity.class);
                 i.putExtra("fragmentNav", 1);
                 i.putExtra("pickedRecipe", allRecipes.get(position));
                 itemView.getContext().startActivity(i);

@@ -1,4 +1,4 @@
-package com.example.recipe_app;
+package com.example.recipe_app.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.example.recipe_app.Activities.HomeActivity;
+import com.example.recipe_app.Models.RecipeModel;
+import com.example.recipe_app.R;
 
 import java.io.Serializable;
 
@@ -34,7 +39,8 @@ public class ClickedRecipeFragment extends Fragment {
             Log.d("content", pickedRecipe.getContent());
         }
         View view = inflater.inflate(R.layout.fragment_clicked_recipe, container, false);
-
+        TextView x = view.findViewById(R.id.contentDisplay);
+        x.setText(pickedRecipe.getContent());
 
 
 

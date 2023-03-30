@@ -1,4 +1,4 @@
-package com.example.recipe_app;
+package com.example.recipe_app.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -9,19 +9,24 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.recipe_app.Fragments.AddRecipeFragment;
+import com.example.recipe_app.Fragments.ClickedRecipeFragment;
+import com.example.recipe_app.Fragments.HomeFragment;
+import com.example.recipe_app.Fragments.MyRecipesFragment;
+import com.example.recipe_app.Fragments.RemoveRecipeFragment;
+import com.example.recipe_app.Fragments.UserSettingsFragment;
+import com.example.recipe_app.Models.UserModel;
+import com.example.recipe_app.Models.UserModelBuilder;
+import com.example.recipe_app.R;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,16 +34,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.auth.User;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -76,9 +76,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 FirebaseUser currentUser = firebaseAuth.getCurrentUser();
 
                 if(currentUser == null)
-                {
                     startActivity(new Intent(HomeActivity.this, MainActivity.class));
-                }
+
 
 
 
@@ -141,10 +140,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         {
             int nav = getIntent().getIntExtra("fragmentNav",0);
             Serializable item = getIntent().getSerializableExtra("pickedRecipe");
-            Log.d("nav to", ((Integer)nav).toString());
+
             if(nav == 1)
             {
-                Log.d("gets here?", "nav is 1");
+
                 bundle.putSerializable("item", item);
                 Fragment frag = new ClickedRecipeFragment();
                 frag.setArguments(bundle);
@@ -152,7 +151,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
             }
             else{
-                Log.d("Is it here?", "savedinstancestate null");
+
                 Fragment home = new HomeFragment();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,home).commit();
                 navigationView.setCheckedItem(R.id.home_nav);
@@ -173,14 +172,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             mAuth.signOut();
         else
         {
-            if(id == R.id.home_nav)
-            {
-                Log.d("Is it home nav?", "yes");
-
-                //bundle.putParcelableArrayList("allRecipes", allRecipes);
-            }
-
-
 
             bundle.putSerializable("user", user);
             idFragmentMapping.get(item.getItemId()).setArguments(bundle);
