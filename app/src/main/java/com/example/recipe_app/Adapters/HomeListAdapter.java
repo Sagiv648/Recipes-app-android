@@ -2,10 +2,7 @@ package com.example.recipe_app.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.recipe_app.Activities.HomeActivity;
 import com.example.recipe_app.Models.RecipeModel;
 import com.example.recipe_app.R;
+import com.example.recipe_app.Utils.DownloadImageTask;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 
 public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.HomeListViewHolder> {
@@ -50,7 +47,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.HomeLi
         RecipeModel recipe = recipes.get(position);
         holder.recipeName.setText(recipe.getName());
         holder.recipeTags.setText(recipe.getTags());
-
+        holder.recipeUpvotes.setText(recipe.getUpVotes() + " Upvotes");
         if(recipe.getPicture() != "awaiting upload"){
 
             new DownloadImageTask(holder.recipeImg)
@@ -77,6 +74,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.HomeLi
         ImageView recipeImg;
         TextView recipeName;
         TextView recipeTags;
+        TextView recipeUpvotes;
         ArrayList<RecipeModel> allRecipes;
         Context context;
         public HomeListViewHolder(@NonNull View itemView, ArrayList<RecipeModel> allRecipes) {
@@ -85,6 +83,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.HomeLi
             recipeImg = itemView.findViewById(R.id.recycler_view_list_item_img);
             recipeName = itemView.findViewById(R.id.recycler_view_list_item_name);
             recipeTags = itemView.findViewById(R.id.recycler_view_list_item_tags);
+            recipeUpvotes = itemView.findViewById(R.id.recycler_view_list_item_upvotes);
             this.allRecipes = allRecipes;
 
 
@@ -100,6 +99,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.HomeLi
                 Intent i = new Intent(itemView.getContext(), HomeActivity.class);
                 i.putExtra("fragmentNav", 1);
                 i.putExtra("pickedRecipe", allRecipes.get(position));
+
                 itemView.getContext().startActivity(i);
 
             }
@@ -108,30 +108,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.HomeLi
         }
     }
 
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
 
-        public DownloadImageTask(ImageView bmImage) {
-            this.bmImage = bmImage;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap mIcon11 = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return mIcon11;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(result);
-        }
-    }
 
 
 }

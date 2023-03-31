@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="300dp"
-    android:layout_height="207dp"
+    android:layout_height="260dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#FB8C00"
     android:layout_marginHorizontal="50dp"
@@ -48,6 +48,18 @@
         app:layout_constraintTop_toBottomOf="@id/recycler_view_list_item_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0 upvotes"
+        android:id="@+id/recycler_view_list_item_upvotes"
+        app:layout_constraintTop_toBottomOf="@id/recycler_view_list_item_tags"
+        app:layout_constraintStart_toStartOf="@id/recycler_view_list_item_tags"
+        app:layout_constraintEnd_toEndOf="@id/recycler_view_list_item_tags"
+        android:textSize="20sp"
+        android:textColor="#1E9303"/>
+
+
 <!--    <TextView-->
 <!--        android:background="@color/teal_200"-->
 <!--        app:layout_constraintStart_toStartOf="parent"-->

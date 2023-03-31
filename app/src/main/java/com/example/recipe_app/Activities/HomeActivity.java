@@ -102,6 +102,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                                 setUuid(uuid)
                                 .setNumRecipes((Long) doc.get("recipes_number"))
                                 .setUploadedRecipes(new ArrayList<String>((List) (doc.get("uploaded_recipes"))))
+                                .setUpvotedRecipes(new ArrayList<>((List)(doc.get("upvoted_recipes"))))
                                         .build();
 
 

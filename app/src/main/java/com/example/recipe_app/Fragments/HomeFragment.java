@@ -81,6 +81,7 @@ public class HomeFragment extends Fragment {
                                 .addContent((String)doc.get("content"))
                                 .addPictures((String)doc.get("picture"))
                                 .addTags((String)doc.get("tags"))
+                                .addUpvotes((Long)doc.get("upvotes"))
                                 .Build()
                         );
                 }

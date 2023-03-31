@@ -79,7 +79,8 @@ public class SignupActivity extends AppCompatActivity {
                                     mapping.put("recipes_number", 0);
                                     //TODO: Check later if null value in db causes problems
                                     mapping.put("uploaded_recipes", Arrays.asList());
-                                    //db.collection("users").document(uuid).set(mapping)
+                                    mapping.put("upvoted_recipes", Arrays.asList());
+
                                     db.collection("users")
                                             .document(uuid)
                                             .set(mapping)

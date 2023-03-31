@@ -3,13 +3,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.ClickedRecipeFragment">
+    tools:context=".Fragments.ClickedRecipeFragment"
+    android:background="@color/teal_700">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/contentDisplay"
+
+    <ImageView
+        android:layout_marginTop="15dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="300dp"
+        android:id="@+id/recipeImg"
+        android:adjustViewBounds="true"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/nameDisplay"
+        android:layout_marginTop="315dp"
+        android:text="recipeNamePlaceholder"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tagsDisplay"
+        android:text="recipeTagsPlaceholder"
+        android:textAlignment="center"
+        android:textSize="14sp"
+        android:layout_marginTop="343dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/contentDisplay"
+        android:text="recipeContentPlaceholder"
+        android:textSize="13sp"
+        android:layout_marginTop="365dp"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Upvote"
+        android:backgroundTint="#21C528"
+        android:layout_marginTop="390dp"
+        android:layout_marginStart="185dp"/>
+
+
+
 
 </FrameLayout>

@@ -21,7 +21,7 @@ public class RecipeModel implements Serializable
 
     private String picture;
 
-    private Integer thumbsUp;
+    private Long upVotes;
 
     private String tags;
     private String content;
@@ -57,12 +57,12 @@ public class RecipeModel implements Serializable
     public void setTags(String tags) {
         this.tags = tags;
     }
-    public Integer getThumbsUp() {
-        return thumbsUp;
+    public Long getUpVotes() {
+        return upVotes;
     }
 
-    public void setThumbsUp(Integer thumbsUp) {
-        this.thumbsUp = thumbsUp;
+    public void setUpVotes(Long upVotes) {
+        this.upVotes = upVotes;
     }
 
 }

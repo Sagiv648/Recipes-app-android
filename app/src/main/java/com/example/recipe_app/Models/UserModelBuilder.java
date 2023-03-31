@@ -32,6 +32,13 @@ public class UserModelBuilder {
             user.setNum_recipes(num);
             return this;
         }
+        public UserModelBuilder setUpvotedRecipes(ArrayList<String> up){
+
+            if(user.getUpvoted_recipes() == null)
+                user.setUpvoted_recipes(new ArrayList<>());
+            user.getUpvoted_recipes().addAll(up);
+            return this;
+        }
         public UserModel build()
         {
             return user;

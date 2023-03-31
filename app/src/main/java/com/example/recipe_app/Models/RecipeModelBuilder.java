@@ -14,9 +14,9 @@ public class RecipeModelBuilder {
             recipe.setPicture(pic);
             return this;
         }
-        public RecipeModelBuilder addThumbsUp(Integer tUp)
+        public RecipeModelBuilder addUpvotes(Long up)
         {
-            recipe.setThumbsUp(tUp);
+            recipe.setUpVotes(up);
             return this;
         }
         public RecipeModelBuilder addTags (String rTags)

@@ -12,6 +12,17 @@ public class UserModel implements Serializable
     private String email;
     private ArrayList<String> uploaded_recipes;
     private Long num_recipes;
+
+    private ArrayList<String> upvoted_recipes;
+    public ArrayList<String> getUpvoted_recipes() {
+        return upvoted_recipes;
+    }
+
+    public void setUpvoted_recipes(ArrayList<String> upvoted_recipes) {
+        this.upvoted_recipes = upvoted_recipes;
+    }
+
+
     public Long getNum_recipes() {
         return num_recipes;
     }

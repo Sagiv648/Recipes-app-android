@@ -92,7 +92,7 @@ public class AddRecipeFragment extends Fragment {
                     map.put("picture", "awaiting upload");
                     map.put("content", contentInput.getText().toString());
                     map.put("tags", tagsInput.getText().toString());
-                    map.put("thumbs_up", 0);
+                    map.put("upvotes", 0);
                     user.setNum_recipes(user.getNum_recipes() + 1);
                     uniqueRecipeId = user.getNum_recipes() + "_" + user.getUuid();
                     user.getUploaded_recipes().add(uniqueRecipeId);
