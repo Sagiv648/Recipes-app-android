@@ -36,7 +36,7 @@ public class ClickedRecipeFragment extends Fragment {
         img = view.findViewById(R.id.recipeImg);
         if(recipe == null)
         {
-            Log.d("nav", "this is clicked recipe fragment");
+//            Log.d("nav", "this is clicked recipe fragment");
             Intent intent = new Intent(getContext(), HomeActivity.class);
             startActivity(intent);
         }
@@ -49,10 +49,10 @@ public class ClickedRecipeFragment extends Fragment {
             new DownloadImageTask(img)
                     .execute(pickedRecipe.getPicture());
 
-            Log.d("name", pickedRecipe.getName());
-            Log.d("tags", pickedRecipe.getTags());
-            Log.d("picture", pickedRecipe.getPicture());
-            Log.d("content", pickedRecipe.getContent());
+//            Log.d("name", pickedRecipe.getName());
+//            Log.d("tags", pickedRecipe.getTags());
+//            Log.d("picture", pickedRecipe.getPicture());
+//            Log.d("content", pickedRecipe.getContent());
 
 
 

@@ -39,15 +39,14 @@
         android:text="recipeContentPlaceholder"
         android:textSize="13sp"
         android:layout_marginTop="365dp"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Upvote"
-        android:backgroundTint="#21C528"
-        android:layout_marginTop="390dp"
-        android:layout_marginStart="185dp"/>
 
-
+<!--    <Button-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="300dp"-->
+<!--        android:layout_marginTop="390dp"-->
+<!--        android:backgroundTint="#21C528"-->
+<!--        android:text="Upvote" />-->
 
 
 </FrameLayout>
