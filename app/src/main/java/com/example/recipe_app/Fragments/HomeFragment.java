@@ -9,9 +9,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.example.recipe_app.Adapters.HomeListAdapter;
 import com.example.recipe_app.Models.RecipeModel;
@@ -33,6 +36,9 @@ public class HomeFragment extends Fragment {
     HomeListAdapter homeAdapter;
     FirebaseFirestore db;
     ArrayList<RecipeModel> allRecipes;
+    EditText inputName;
+    Button searchBtn;
+    ArrayList<RecipeModel> queriedRecipes;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -40,6 +46,8 @@ public class HomeFragment extends Fragment {
         allRecipes = new ArrayList<>();
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        inputName = view.findViewById(R.id.recipeNameToSearchInput);
+        searchBtn = view.findViewById(R.id.searchRecipeByNameBtn);
 
         // Inflate the layout for this fragment
         return view;
@@ -60,6 +68,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        homeAdapter.notifyDataSetChanged();
 
     }
 
@@ -69,6 +78,7 @@ public class HomeFragment extends Fragment {
 
         //TODO: Fetch all recipes from firebase as the data
         allRecipes = new ArrayList<>();
+        queriedRecipes = new ArrayList<>();
         db.collection("recipes").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -105,7 +115,28 @@ public class HomeFragment extends Fragment {
         recyclerView.setAdapter(homeAdapter);
 
         homeAdapter.notifyDataSetChanged();
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(inputName.getText().length() > 0)
+                {
+                    for(RecipeModel r : allRecipes)
+                    {
+                        Log.d("name", inputName.getText().toString());
+                        Log.d("r name", r.getName());
+                        if(r.getName().equals( inputName.getText().toString())){
+                            Log.d("name",inputName.getText().toString());
+                            Log.d("equalName", r.getName());
+                            queriedRecipes.add(r);
+                        }
 
+                    }
+                    allRecipes.clear();
+                    allRecipes.addAll(queriedRecipes);
+                    homeAdapter.notifyDataSetChanged();
+                }
+            }
+        });
 
     }
 }
