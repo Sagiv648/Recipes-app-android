@@ -36,18 +36,27 @@ public class HomeFragment extends Fragment {
     HomeListAdapter homeAdapter;
     FirebaseFirestore db;
     ArrayList<RecipeModel> allRecipes;
-    EditText inputName;
     Button searchBtn;
-    ArrayList<RecipeModel> queriedRecipes;
+    EditText inputName;
+
+
+    ArrayList<RecipeModel> allRecipesHolder;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         db = FirebaseFirestore.getInstance();
         allRecipes = new ArrayList<>();
-
+        allRecipesHolder = new ArrayList<>();
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         inputName = view.findViewById(R.id.recipeNameToSearchInput);
         searchBtn = view.findViewById(R.id.searchRecipeByNameBtn);
+
+
+
+
+
+
+
 
         // Inflate the layout for this fragment
         return view;
@@ -59,7 +68,7 @@ public class HomeFragment extends Fragment {
         super.onStart();
 //        Intent intent = new Intent(getActivity(), MainActivity.class);
 //        startActivity(intent);
-            homeAdapter.notifyDataSetChanged();
+
 
 
 
@@ -68,7 +77,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        homeAdapter.notifyDataSetChanged();
+
 
     }
 
@@ -76,9 +85,20 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //TODO: Fetch all recipes from firebase as the data
+        // Fetch all recipes from firebase as the data
         allRecipes = new ArrayList<>();
-        queriedRecipes = new ArrayList<>();
+
+        //Recycler view configuration
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setHasFixedSize(true);
+
+        homeAdapter = new HomeListAdapter(getContext(), allRecipes);
+
+        recyclerView.setAdapter(homeAdapter);
+
+
+
         db.collection("recipes").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -86,14 +106,21 @@ public class HomeFragment extends Fragment {
                 {
 
                     for(QueryDocumentSnapshot doc : task.getResult())
-                        allRecipes.add(new RecipeModelBuilder().
-                                addName((String)doc.get("name"))
+                    {
+
+                        allRecipes.add(new RecipeModelBuilder()
+                                .addId(doc.getId())
+                                .addName((String)doc.get("name"))
                                 .addContent((String)doc.get("content"))
                                 .addPictures((String)doc.get("picture"))
                                 .addTags((String)doc.get("tags"))
                                 .addUpvotes((Long)doc.get("upvotes"))
                                 .Build()
                         );
+                        allRecipesHolder.add(allRecipes.get(allRecipes.size()-1));
+                    }
+
+                    homeAdapter.notifyDataSetChanged();
                 }
                 else{
                     new AlertDialog.Builder(getContext()).setTitle("Error")
@@ -104,39 +131,44 @@ public class HomeFragment extends Fragment {
             }
         });
 
-
-
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setHasFixedSize(true);
-
-        homeAdapter = new HomeListAdapter(getContext(), allRecipes);
-
-        recyclerView.setAdapter(homeAdapter);
-
-        homeAdapter.notifyDataSetChanged();
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(inputName.getText().length() > 0)
+
+                allRecipes.clear();
+                if(inputName.getText().toString().length() > 0)
                 {
-                    for(RecipeModel r : allRecipes)
+
+                    for(RecipeModel r : allRecipesHolder)
                     {
-                        Log.d("name", inputName.getText().toString());
-                        Log.d("r name", r.getName());
                         if(r.getName().equals( inputName.getText().toString())){
-                            Log.d("name",inputName.getText().toString());
-                            Log.d("equalName", r.getName());
-                            queriedRecipes.add(r);
+                            allRecipes.add(r);
+
+
                         }
 
                     }
-                    allRecipes.clear();
-                    allRecipes.addAll(queriedRecipes);
-                    homeAdapter.notifyDataSetChanged();
+
                 }
+                else
+                {
+
+
+
+                    for(RecipeModel r : allRecipesHolder)
+                    {
+                        allRecipes.add(r);
+
+                    }
+
+
+                }
+                homeAdapter.notifyDataSetChanged();
+
             }
         });
+
+
 
     }
 }

@@ -32,21 +32,22 @@
         android:textAlignment="center"
         android:textSize="14sp"
         android:layout_marginTop="343dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="300dp"
+        android:layout_marginTop="370dp"
+        android:backgroundTint="#21C528"
+        android:text="Upvote"
+        android:id="@+id/upvote_recipe_btn"/>
+
     <TextView
+        android:id="@+id/contentDisplay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/contentDisplay"
+        android:layout_marginTop="430dp"
         android:text="recipeContentPlaceholder"
-        android:textSize="13sp"
-        android:layout_marginTop="365dp"/>
-
-<!--    <Button-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="300dp"-->
-<!--        android:layout_marginTop="390dp"-->
-<!--        android:backgroundTint="#21C528"-->
-<!--        android:text="Upvote" />-->
-
+        android:textSize="13sp" />
 
 </FrameLayout>

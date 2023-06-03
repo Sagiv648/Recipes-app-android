@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import com.example.recipe_app.Fragments.AddRecipeFragment;
 import com.example.recipe_app.Fragments.ClickedRecipeFragment;
 import com.example.recipe_app.Fragments.HomeFragment;
+import com.example.recipe_app.Fragments.MyRecipesFragment;
 import com.example.recipe_app.Models.UserModel;
 import com.example.recipe_app.Models.UserModelBuilder;
 import com.example.recipe_app.R;
@@ -56,7 +58,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_home);
         idFragmentMapping = new HashMap<>();
         idFragmentMapping.put(R.id.home_nav, new HomeFragment());
-        //idFragmentMapping.put(R.id.my_recipes_nav, new MyRecipesFragment());
+        idFragmentMapping.put(R.id.my_recipes_nav, new MyRecipesFragment());
         idFragmentMapping.put(R.id.add_recipe_nav, new AddRecipeFragment());
         //idFragmentMapping.put(R.id.remove_recipe_nav, new RemoveRecipeFragment());
         //idFragmentMapping.put(R.id.user_settings_nav, new UserSettingsFragment());
@@ -84,11 +86,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 
         DocumentReference docRef = db.collection("users").document(uuid);
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        Task<DocumentSnapshot> ref = docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful())
                 {
+
                     DocumentSnapshot doc = task.getResult();
                     if(doc.exists())
                     {
@@ -119,6 +122,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+
         toolbar = findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
 
@@ -132,30 +136,39 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
+        ref.addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(savedInstanceState==null)
+                {
+                    int nav = getIntent().getIntExtra("fragmentNav",0);
+                    Serializable item = getIntent().getSerializableExtra("pickedRecipe");
 
-        if(savedInstanceState==null)
-        {
-            int nav = getIntent().getIntExtra("fragmentNav",0);
-            Serializable item = getIntent().getSerializableExtra("pickedRecipe");
+                    if(nav == 1)
+                    {
 
-            if(nav == 1)
-            {
 
-                bundle.putSerializable("item", item);
-                Fragment frag = new ClickedRecipeFragment();
-                frag.setArguments(bundle);
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, frag).commit();
+                        bundle.putSerializable("item", item);
+                        bundle.putSerializable("user", user);
 
+
+                        Fragment frag = new ClickedRecipeFragment();
+                        frag.setArguments(bundle);
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, frag).commit();
+
+                    }
+                    else{
+
+                        Fragment home = new HomeFragment();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,home).commit();
+                        navigationView.setCheckedItem(R.id.home_nav);
+                    }
+
+
+                }
             }
-            else{
+        });
 
-                Fragment home = new HomeFragment();
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,home).commit();
-                navigationView.setCheckedItem(R.id.home_nav);
-            }
-
-
-        }
     }
 
     @Override

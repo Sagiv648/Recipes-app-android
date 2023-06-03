@@ -34,6 +34,11 @@ public class RecipeModelBuilder {
             recipe.setContent(rContent);
             return this;
         }
+        public RecipeModelBuilder addId(String rId)
+        {
+            recipe.setId(rId);
+            return this;
+        }
         public RecipeModel Build()
         {
             return recipe;

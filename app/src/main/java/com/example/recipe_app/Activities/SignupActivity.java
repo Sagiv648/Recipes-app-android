@@ -109,7 +109,7 @@ public class SignupActivity extends AppCompatActivity {
                                                     }
                                                     else
                                                     {
-                                                        //TODO: Write a wrapper class for the documents to pass it along the activities
+
                                                         startActivity(new Intent(SignupActivity.this, HomeActivity.class));
                                                     }
                                                 }

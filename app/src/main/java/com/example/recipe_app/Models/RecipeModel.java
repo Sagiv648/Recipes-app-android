@@ -16,7 +16,7 @@ public class RecipeModel implements Serializable
     {
 
     }
-
+    private String id;
     private String name;
 
     private String picture;
@@ -65,4 +65,11 @@ public class RecipeModel implements Serializable
         this.upVotes = upVotes;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 }

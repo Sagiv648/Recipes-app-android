@@ -15,11 +15,11 @@
 <!--            android:icon="@drawable/user_settings_nav"-->
 <!--            android:title="Settings"-->
 <!--            />-->
-<!--        <item-->
-<!--            android:id="@+id/my_recipes_nav"-->
-<!--            android:icon="@drawable/my_recipes_nav"-->
-<!--            android:title="My recipes"-->
-<!--            />-->
+        <item
+            android:id="@+id/my_recipes_nav"
+            android:icon="@drawable/my_recipes_nav"
+            android:title="My recipes"
+            />
         <item
             android:id="@+id/add_recipe_nav"
             android:icon="@drawable/add_recipe_nav"
