@@ -1,6 +1,7 @@
 package com.example.recipe_app.Adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
         RecipeModel recipe = recipes.get(position);
         holder.recipeName.setText(recipe.getName());
         holder.recipeTags.setText(recipe.getTags());
+        holder.recipeContent.setText(recipe.getContent());
         holder.recipeUpvotes.setText(recipe.getUpVotes() + " upvotes");
         if(recipe.getPicture() != "awaiting upload")
         {
@@ -59,6 +61,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
         ImageView recipeImg;
         TextView recipeName;
         TextView recipeTags;
+        TextView recipeContent;
         TextView recipeUpvotes;
         Button deleteBtn;
         ArrayList<RecipeModel> allRecipes;
@@ -69,7 +72,17 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
             recipeTags = itemView.findViewById(R.id.my_recipe_tags);
             recipeUpvotes = itemView.findViewById(R.id.my_recipe_upvote_count);
             deleteBtn = itemView.findViewById(R.id.delete_recipe_btn);
+            recipeContent = itemView.findViewById(R.id.my_recipe_content);
+
+
             this.allRecipes = allRecipes;
+
+            deleteBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.e("clicked", "btn clicked");
+                }
+            });
         }
     }
 }
