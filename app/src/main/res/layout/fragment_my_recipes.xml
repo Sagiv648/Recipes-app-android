@@ -5,12 +5,39 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.MyRecipesFragment">
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="80dp">
+
+        <EditText
+            android:id="@+id/ownRecipeNameSearchInput"
+            android:background="@color/white"
+            android:layout_marginTop="10dp"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+            android:inputType="text"
+            android:hint="Recipe name to search"/>
+        <Button
+            android:layout_marginTop="10dp"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="30dp"
+            android:text="Search"
+            android:backgroundTint="#FB8C00"
+            android:id="@+id/ownRecipeNameSearchBtn"/>
+    </LinearLayout>
+
+
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="This is my recipes"
-        android:textSize="50sp"
-        android:layout_centerInParent="true"/>
+    <androidx.recyclerview.widget.RecyclerView
+
+        android:layout_marginTop="70dp"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/my_recipes_recycler_view_list_item"
+        android:id="@+id/myRecipesRecyclerView"/>
 
 </FrameLayout>

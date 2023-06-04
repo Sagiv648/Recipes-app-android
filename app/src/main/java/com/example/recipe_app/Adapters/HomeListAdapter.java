@@ -55,7 +55,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.HomeLi
 
 
 
-            //holder.recipeImg.setImageURI(Uri.parse(recipe.getPicture()));
+
 
         }
 

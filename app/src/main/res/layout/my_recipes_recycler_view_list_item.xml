@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="300dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginHorizontal="50dp"
+    android:background="#FB8C00" android:layout_marginTop="10dp">
+
+    <ImageView
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="270dp"
+        android:layout_height="170dp"
+        android:adjustViewBounds="true"
+
+        android:scaleType="centerCrop"
+        android:id="@+id/my_recipes_recycler_view_list_item_img"
+        android:layout_marginBottom="80dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/my_recipe_name"
+        app:layout_constraintTop_toBottomOf="@id/my_recipes_recycler_view_list_item_img"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="name_placeholder"
+        app:layout_constraintStart_toStartOf="parent"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/my_recipe_upvote_count"
+        android:text="upvotes_placeholder"
+        app:layout_constraintTop_toBottomOf="@id/my_recipe_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="#017A06"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/my_recipe_tags"
+        android:text="tags_placeholder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/my_recipe_upvote_count"/>
+    <TextView
+        android:layout_width="200sp"
+        android:layout_marginTop="5dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/my_recipe_content"
+        android:text="recipe_content_placeholder"
+        app:layout_constraintTop_toBottomOf="@id/my_recipe_tags"
+        app:layout_constraintStart_toStartOf="parent"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/delete_recipe_btn"
+        android:text="Delete"
+        app:layout_constraintStart_toEndOf="@id/my_recipe_content"
+        app:layout_constraintTop_toBottomOf="@id/my_recipe_tags"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:backgroundTint="#E53935" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
